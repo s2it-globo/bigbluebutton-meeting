@@ -1,0 +1,11 @@
+Na raz do projeto, execute os seguintes comandos:
+
+gradle resolveDeps
+
+gradle build
+
+sudo rm -rf /var/lib/tomcat6/webapps/meeting*
+
+sudo cp build/libs/meeting.war /var/lib/tomcat6/webapps/
+
+sudo service tomcat6 restart

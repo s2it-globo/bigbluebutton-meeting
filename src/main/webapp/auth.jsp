@@ -27,10 +27,6 @@
 
 <%@ page import="java.util.regex.*"%>
 
-<%@ page import="javax.naming.Context"%>
-<%@ page import="javax.naming.directory.*"%>
-<%@ page import="java.util.Hashtable"%>
-
 <div class="container">
 
 <%
@@ -125,7 +121,7 @@
 		String password = request.getParameter("password");
 		String meetingID = request.getParameter("meetingId");
 		
-		boolean auth = com.globo.sec.authapi.authapi.AuthAPICheck(username, password, false, "10.2.4.45", "BigBlueButton");
+		boolean auth = com.globo.sec.authapi.Functions.AuthAPICheck(username, password, false, "10.2.4.45", "BigBlueButton");
 		
 		if(!auth) {
 			response.sendRedirect("auth.jsp");	
@@ -168,7 +164,7 @@
 		String username = request.getParameter("username1");
 		String password = request.getParameter("password1");
 		
-		boolean auth = com.globo.sec.authapi.authapi.AuthAPICheck(username, password, false, "10.2.4.45", "BigBlueButton");
+		boolean auth = com.globo.sec.authapi.Functions.AuthAPICheck(username, password, false, "10.2.4.45", "BigBlueButton");
 		
 		if(!auth) {
 			response.sendRedirect("index.jsp?action=invite&meetingID=" + meetingID);	

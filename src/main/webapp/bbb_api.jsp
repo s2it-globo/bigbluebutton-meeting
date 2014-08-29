@@ -955,37 +955,4 @@ public static Element getElementWithAttribute(Node root, String attrName, String
       return null;
 }
 
-public boolean isAuthenticate(String username, String password) {
-	
-	Hashtable<String, String> env = new Hashtable<String, String>();
-	env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-	env.put(Context.PROVIDER_URL, "ldap://192.168.24.14:389/cn=ldapweb,ou=Usuarios,dc=globoi,dc=com");
-	env.put(Context.SECURITY_AUTHENTICATION, "simple");
-	env.put(Context.SECURITY_PRINCIPAL, "cn=" + username + ",ou=Usuarios,dc=globoi,dc=com");
-	env.put(Context.SECURITY_CREDENTIALS, password);
-	
-	DirContext ctx = null;
-	boolean auth = false;
-	try {
-		ctx = new InitialDirContext(env);
-		auth = true;
-	}
-	catch (Exception e) {
-		e.printStackTrace();
-	} 
-	finally {
-		if (ctx != null) {
-			try {
-				ctx.close();
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	return auth;
-	
-}
-
 %>

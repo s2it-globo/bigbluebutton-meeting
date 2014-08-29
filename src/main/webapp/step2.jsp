@@ -15,7 +15,7 @@
 	String password = request.getParameter("password");
 	String meetingID = request.getParameter("meetingId");
 	
-	if(!isAuthenticate(username, password)) {
+	if(!com.globo.sec.authapi.Functions.AuthAPICheck(username, password, false, "10.2.4.45", "BigBlueButton")) {
 		response.sendRedirect("step1.jsp?auth=false");
 	}
 	
