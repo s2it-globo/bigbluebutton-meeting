@@ -15,9 +15,9 @@
 	String password = request.getParameter("password");
 	String meetingID = request.getParameter("meetingId");
 	
-	if(!com.globo.sec.authapi.Functions.AuthAPICheck(username, password, false, "10.2.132.64", "BigBlueButton")) {
-		response.sendRedirect("step1.jsp?auth=false");
-	}
+	if(com.globo.sec.authapi.Functions.AuthAPICheck(username, password, false, "10.2.132.64", "BigBlueButton")) {
+		
+	
 	
 	//
 	// This is the URL for to join the meeting as moderator
@@ -35,6 +35,9 @@
 	String encodedString = new String(byteArray);
 	
 	String inviteURL = url + "step3.jsp?meetingID=" + encodedString;
+	}else{
+		response.sendRedirect("step1.jsp?auth=false");
+	}
 %>
 
 <h2 class="form-signin-heading">Reunião '<%=meetingID%>' foi criada com sucesso!</h2>
