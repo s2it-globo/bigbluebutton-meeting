@@ -15,6 +15,10 @@
 	String password = request.getParameter("password");
 	String meetingID = request.getParameter("meetingId");
 	
+	if(!com.globo.sec.authapi.Functions.AuthAPICheck(username, password, false, "10.2.132.64", "BigBlueButton")) {
+		response.sendRedirect("step1.jsp?auth=false");
+	}
+	
 	//
 	// This is the URL for to join the meeting as moderator
 	//
