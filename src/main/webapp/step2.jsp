@@ -14,8 +14,8 @@
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
 	String meetingID = request.getParameter("meetingId");
-         	
-	if(com.globo.auth.Autentica.AuthAPICheck(user, pass,false, "10.2.4.45", "BigBlueButton")) {	
+
+	if(com.globo.auth.Autentica.AuthAPICheck(user, pass,false, "10.2.4.45", "BigBlueButton")) {
 		//
 		// This is the URL for to join the meeting as moderator
 		//
@@ -33,7 +33,6 @@
 	
 		String inviteURL = url + "step3.jsp?meetingID=" + encodedString;
 %>
-
 	<h2 class="form-signin-heading">Reunião '<%=meetingID%>' foi criada com sucesso!</h2>
 
 	<br />
