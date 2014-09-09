@@ -2,6 +2,7 @@
 
 <%@ page import="java.util.regex.*"%>
 <%@ page import="org.apache.commons.codec.binary.Base64"%>
+<%@ page import="com.globo.auth.Autentica" %>
 
 <div class="container">
 
@@ -14,8 +15,7 @@
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
 	String meetingID = request.getParameter("meetingId");
-
-	if(com.globo.auth.Autentica.AuthAPICheck(user, pass,false, "10.2.4.45", "BigBlueButton")) {
+	if(com.globo.auth.Autentica.AuthAPICheck(username, password,false, "10.2.4.45", "BigBlueButton")) {
 		//
 		// This is the URL for to join the meeting as moderator
 		//
