@@ -32,5 +32,6 @@ dependencies {
 	  compile 'org.apache.httpcomponents:httpcore:4.3.2'
 	  compile 'org.apache.httpcomponents:httpmime:4.3.4'
 	  compile 'javax.mail:mail:1.4'
+          compile 'org.json:json:20090211'
 	  compile files('lib/ClientAutenticacao.jar')
 }
