@@ -1,9 +1,11 @@
 <%@ include file="header.jsp"%>
 
+
 <%@ page import="java.util.*"%>
 <%@ page import="java.io.FileNotFoundException"%>
 <%@ page import="java.io.IOException"%>
 <%@ page import="java.io.InputStream"%>
+<%@ page import="org.json"%>
 
 <%@ page import="javax.mail.Message"%>
 <%@ page import="javax.mail.MessagingException"%>
@@ -27,8 +29,12 @@
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
 	String meetingID = request.getParameter("meetingId");
-	//if(com.globo.auth.Autentica.AuthAPICheck(username, password,false, "10.2.4.45", "BigBlueButton")) {
+
+        //String jsonStr = com.globo.auth.Autentica.AuthAPICheck(username, password,false, "10.2.4.45", "BigBlueButton");
+        //if(jsonStr){
 	if(true){
+
+		JSONObject jsonObj = new JSONObject("{\"cn\":[\"marcus.jorge\"],\"uidnumber\":[\"40272\"],\"employeetype\":[\"-\"],\"shadowmax\":[\"365\"],\"mail\":[\"avner.goncalves@s2it.com.br\"],\"uid\":[\"marcus.jorge\"],\"mobile\":[\"0\"],\"sn\":[\"Jorge\"],\"shadowlastchange\":[\"16120\"],\"shadowmin\":[\"1\"],\"homedirectory\":[\"\/home\/prod\/marcus.jorge\"],\"loginshell\":[\"\/bin\/bash\"],\"givenname\":[\"Marcus Vinÿ­cius\"],\"employeenumber\":[\"1162\"],\"initials\":[\"Garcia\"],\"shadowwarning\":[\"30\"],\"street\":[\"---\"],\"homephone\":[\"(21) 2483-6657\"],\"description\":[\"infra\"],\"gidnumber\":[\"40272\"]}");
          	//
 		// This is the URL for to join the meeting as moderator
 		//
@@ -83,7 +89,7 @@
 	  final String pass = prop.getProperty("pass");
 	  final String port = prop.getProperty("port");
          
-           final String to = "avner.goncalves@s2it.com.br";
+          final String to = jsonObj.get("email");
          
           // Get system properties
           Properties properties = System.getProperties();
