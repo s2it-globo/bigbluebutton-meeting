@@ -27,8 +27,9 @@
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
 	String meetingID = request.getParameter("meetingId");
-	if(com.globo.auth.Autentica.AuthAPICheck(username, password,false, "10.2.4.45", "BigBlueButton")) {
-		//
+	//if(com.globo.auth.Autentica.AuthAPICheck(username, password,false, "10.2.4.45", "BigBlueButton")) {
+	if(true){
+         	//
 		// This is the URL for to join the meeting as moderator
 		//
 		String joinURL = getJoinURL(username, meetingID, "false", "<br>Bem-vindo ao %%CONFNAME%%.<br>", null, null);
@@ -82,6 +83,8 @@
 	  final String pass = prop.getProperty("pass");
 	  final String port = prop.getProperty("port");
          
+           final String to = "avner.goncalves@s2it.com.br";
+         
           // Get system properties
           Properties properties = System.getProperties();
 
@@ -108,7 +111,7 @@
 
               // Set To: header field of the header.
               message.addRecipient(Message.RecipientType.TO,
-                                  new InternetAddress("avner.goncalve@s2it.com.br"));
+                                  new InternetAddress(to));
 
               // Set Subject: header field
               message.setSubject(subject);
@@ -134,7 +137,7 @@
               // Now set the actual message
               StringBuilder text2 = new StringBuilder();
               text2.append("Reunião "+meetingID+" foi criada com sucesso!\n\n");
-              text2.append("Convide outras pessoas usando o seguinte link (mostrado abaixo): \n");
+              text2.append("Clique no link abaixo para iniciar a sua reunião: \n");
               text2.append(inviteURL);
 
               message.setText(text2.toString());
