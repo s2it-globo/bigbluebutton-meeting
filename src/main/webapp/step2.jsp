@@ -5,7 +5,6 @@
 <%@ page import="java.io.FileNotFoundException"%>
 <%@ page import="java.io.IOException"%>
 <%@ page import="java.io.InputStream"%>
-<%@ page import="org.json"%>
 
 <%@ page import="javax.mail.Message"%>
 <%@ page import="javax.mail.MessagingException"%>
@@ -17,6 +16,8 @@
 
 <%@ page import="org.apache.commons.codec.binary.Base64"%>
 <%@ page import="com.globo.auth.Autentica" %>
+
+<%@ page import="org.json.JSONObject"%>
 
 <div class="container">
 
@@ -34,7 +35,9 @@
         //if(jsonStr){
 	if(true){
 
-		JSONObject jsonObj = new JSONObject("{\"cn\":[\"marcus.jorge\"],\"uidnumber\":[\"40272\"],\"employeetype\":[\"-\"],\"shadowmax\":[\"365\"],\"mail\":[\"avner.goncalves@s2it.com.br\"],\"uid\":[\"marcus.jorge\"],\"mobile\":[\"0\"],\"sn\":[\"Jorge\"],\"shadowlastchange\":[\"16120\"],\"shadowmin\":[\"1\"],\"homedirectory\":[\"\/home\/prod\/marcus.jorge\"],\"loginshell\":[\"\/bin\/bash\"],\"givenname\":[\"Marcus Vinÿ­cius\"],\"employeenumber\":[\"1162\"],\"initials\":[\"Garcia\"],\"shadowwarning\":[\"30\"],\"street\":[\"---\"],\"homephone\":[\"(21) 2483-6657\"],\"description\":[\"infra\"],\"gidnumber\":[\"40272\"]}");
+                //JSONObject jsonObj = new JSONObject(jsonStr);
+		JSONObject jsonObj = new JSONObject("{'cn':['marcus.jorge'],'uidnumber':['40272'],'employeetype':['-'],'shadowmax':['365'],'mail':['avner.goncalves@s2it.com.br'],'uid':['marcus.jorge'],'mobile':['0'],'sn':['Jorge'],'shadowlastchange':['16120'],'shadowmin':['1'],'employeenumber':['1162'],'initials':['Garcia'],'shadowwarning':['30'],'street':['---'],'homephone':['(21) 2483-6657'],'description':['infra'],'gidnumber':['40272']}");
+
          	//
 		// This is the URL for to join the meeting as moderator
 		//
@@ -89,7 +92,7 @@
 	  final String pass = prop.getProperty("pass");
 	  final String port = prop.getProperty("port");
          
-          final String to = jsonObj.get("email");
+          final String to = jsonObj.getJSONArray("mail").getString(0);
          
           // Get system properties
           Properties properties = System.getProperties();
