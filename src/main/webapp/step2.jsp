@@ -31,12 +31,12 @@
 	String password = request.getParameter("password");
 	String meetingID = request.getParameter("meetingId");
 
-        //String jsonStr = com.globo.auth.Autentica.AuthAPICheck(username, password,false, "10.2.4.45", "BigBlueButton");
-        //if(jsonStr){
-	if(true){
+        String jsonStr = com.globo.auth.Autentica.AuthAPICheck(username, password,false, "10.2.4.45", "BigBlueButton");
+        if(jsonStr){
+	//if(true){
 
-                //JSONObject jsonObj = new JSONObject(jsonStr);
-		JSONObject jsonObj = new JSONObject("{'cn':['marcus.jorge'],'uidnumber':['40272'],'employeetype':['-'],'shadowmax':['365'],'mail':['avner.goncalves@s2it.com.br'],'uid':['marcus.jorge'],'mobile':['0'],'sn':['Jorge'],'shadowlastchange':['16120'],'shadowmin':['1'],'employeenumber':['1162'],'initials':['Garcia'],'shadowwarning':['30'],'street':['---'],'homephone':['(21) 2483-6657'],'description':['infra'],'gidnumber':['40272']}");
+                JSONObject jsonObj = new JSONObject(jsonStr);
+		//JSONObject jsonObj = new JSONObject("{'cn':['marcus.jorge'],'uidnumber':['40272'],'employeetype':['-'],'shadowmax':['365'],'mail':['avner.goncalves@s2it.com.br'],'uid':['marcus.jorge'],'mobile':['0'],'sn':['Jorge'],'shadowlastchange':['16120'],'shadowmin':['1'],'employeenumber':['1162'],'initials':['Garcia'],'shadowwarning':['30'],'street':['---'],'homephone':['(21) 2483-6657'],'description':['infra'],'gidnumber':['40272']}");
 
          	//
 		// This is the URL for to join the meeting as moderator
