@@ -54,6 +54,7 @@
 			<label class="control-label" for="password">Senha</label>
 			<div class="controls">
 				<input id="password" name="password" class="input-xlarge" type="password" autofocus required>
+				<%if(isEnableTwoFactor){%><span class="help-block">Two-factor habilitado (Senha+Token) sem espaços.</span><%}%>
 			</div>
 		</div>
 		
@@ -89,4 +90,5 @@
     });
 </script>
 
+</div>
 <%@ include file="footer.jsp"%>
