@@ -15,14 +15,13 @@
 <%@ page import="javax.mail.internet.MimeMessage"%>
 
 <%@ page import="org.apache.commons.codec.binary.Base64"%>
-<%@ page import="com.globo.auth.Autentica" %>
 
 <%@ page import="org.json.JSONObject"%>
 
 <div class="container">
 
 <%
-
+	
 	if (request.getParameterMap().isEmpty()) {
 		response.sendRedirect("step1.jsp");
 	}
@@ -31,12 +30,13 @@
 	String password = request.getParameter("password");
 	String meetingID = request.getParameter("meetingId");
 
-        String jsonStr = com.globo.auth.Autentica.AuthAPICheck(username, password,false, "10.2.4.45", "BigBlueButton");
-        if(jsonStr){
+	Boolean isAuthenticate = com.globo.auth.Autentica.AuthAPICheck(username, password, isEnableTwoFactor, "10.2.4.45", "BigBlueButton");
+    
+    if(isAuthenticate){
 	//if(true){
-
-                JSONObject jsonObj = new JSONObject(jsonStr);
-		//JSONObject jsonObj = new JSONObject("{'cn':['marcus.jorge'],'uidnumber':['40272'],'employeetype':['-'],'shadowmax':['365'],'mail':['avner.goncalves@s2it.com.br'],'uid':['marcus.jorge'],'mobile':['0'],'sn':['Jorge'],'shadowlastchange':['16120'],'shadowmin':['1'],'employeenumber':['1162'],'initials':['Garcia'],'shadowwarning':['30'],'street':['---'],'homephone':['(21) 2483-6657'],'description':['infra'],'gidnumber':['40272']}");
+		String responseBody = com.globo.auth.Autentica.responseBody;
+    	JSONObject jsonObj = new JSONObject(responseBody);
+		//JSONObject jsonObj = new JSONObject("{'cn':['marcus.jorge'],'uidnumber':['40272'],'employeetype':['-'],'shadowmax':['365'],'mail':['william.silva@s2it.com.br'],'uid':['marcus.jorge'],'mobile':['0'],'sn':['Jorge'],'shadowlastchange':['16120'],'shadowmin':['1'],'employeenumber':['1162'],'initials':['Garcia'],'shadowwarning':['30'],'street':['---'],'homephone':['(21) 2483-6657'],'description':['infra'],'gidnumber':['40272']}");
 
          	//
 		// This is the URL for to join the meeting as moderator
@@ -55,12 +55,15 @@
 	
 		String inviteURL = url + "step3.jsp?meetingID=" + encodedString;
 %>
-	<h2 class="form-signin-heading">Reunião '<%=meetingID%>' foi criada com sucesso!</h2>
+	<h2 class="form-signin-heading">
+		Reunião '<%=meetingID%>' foi criada com sucesso!
+	</h2>
 
 	<br />
 
 	<div class="page-header">
-		<h3>Passo 2 - Convide outras pessoas usando o seguinte link (mostrado abaixo):</h3>
+		<h3>Passo 2 - Convide outras pessoas usando o seguinte link
+			(mostrado abaixo):</h3>
 		<p class="lead">
 			<%=inviteURL%>
 		</p>
@@ -85,24 +88,24 @@
 	
 	  prop.load(inputStream);
 	  // get the property value and print it out
-          final String subject = prop.getProperty("subject");
+      final String subject = prop.getProperty("subject");
 	  final String from = prop.getProperty("from");
 	  final String host = prop.getProperty("host");
 	  final String user = prop.getProperty("user");
 	  final String pass = prop.getProperty("pass");
 	  final String port = prop.getProperty("port");
          
-          final String to = jsonObj.getJSONArray("mail").getString(0);
-         
-          // Get system properties
-          Properties properties = System.getProperties();
+      final String to = jsonObj.getJSONArray("mail").getString(0);
+     
+      // Get system properties
+      Properties properties = System.getProperties();
 
-          // Using SSL 
-          properties.put("mail.smtp.host", host);
-          properties.put("mail.smtp.socketFactory.port", port);
-          properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-          properties.put("mail.smtp.auth", "true");
-          properties.put("mail.smtp.port", port);
+      // Using SSL 
+      properties.put("mail.smtp.host", host);
+      properties.put("mail.smtp.socketFactory.port", port);
+      properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+      properties.put("mail.smtp.auth", "true");
+      properties.put("mail.smtp.port", port);
 		
 	  // Get the default Session object.
 	  Session s = Session.getInstance(properties, new javax.mail.Authenticator() {
@@ -159,14 +162,14 @@
               mex.printStackTrace();
           }
 
-} catch (Exception e) {
-     e.printStackTrace();
+	} catch (Exception e) {
+     	e.printStackTrace();
+	}
+	%>
+
+<%@ include file="footer.jsp"%>
+
+<%}else{
+	response.sendRedirect("step1.jsp?auth=false");
 }
 %>
-	
-	<%@ include file="footer.jsp"%>
-
-<% }else{ %>
-	response.sendRedirect("step1.jsp?auth=false");
-<% } %>
-
