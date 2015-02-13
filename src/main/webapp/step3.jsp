@@ -6,6 +6,7 @@
 <%@ page import="java.util.Hashtable"%>
 
 <%@ page import="org.apache.commons.codec.binary.Base64"%>
+<%@ page import="org.apache.commons.lang.StringEscapeUtils"%>
 
 <div class="container">
 
@@ -19,16 +20,12 @@
 	// We have an invite to an active meeting. Ask the person for their name 
 	// so they can join.
 	//
-	String encodedMeetingID = request.getParameter("meetingID");
-			
-	// Get bytes from string
-	byte[] byteArray = Base64.decodeBase64(encodedMeetingID.getBytes());
-	
-	// Print the decoded string
-	String meetingID = new String(byteArray);
+	String meetingID = request.getParameter("meetingID");
+	String meetingName = request.getParameter("meetingName");
+
 %>
 
-<h2 class="form-signin-heading">Você foi convidado para participar da reunião '<%=meetingID%>'</h2>
+<h2 class="form-signin-heading">Você foi convidado para participar da reunião '<%=StringEscapeUtils.escapeHtml(meetingName)%>'</h2>
 
 <br />
 
@@ -47,7 +44,8 @@
 			</div>
 		</div>
 		
-		<input type="hidden" name="meetingID" value="<%=encodedMeetingID%>">
+		<input type="hidden" name="meetingID" value="<%=meetingID%>">
+		<input type="hidden" name="meetingName" value="<%=meetingName%>">
 		
 		<!-- Button -->
 		<div class="control-group">

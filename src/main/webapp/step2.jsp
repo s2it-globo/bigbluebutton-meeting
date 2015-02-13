@@ -15,8 +15,11 @@
 <%@ page import="javax.mail.internet.MimeMessage"%>
 
 <%@ page import="org.apache.commons.codec.binary.Base64"%>
-
+<%@ page import="org.apache.commons.lang.StringEscapeUtils"%>
 <%@ page import="org.json.JSONObject"%>
+
+<%@ page import="com.globo.auth.*"%>
+
 
 <div class="container">
 
@@ -28,35 +31,33 @@
 		
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
-	String meetingID = request.getParameter("meetingId");
-
-	Boolean isAuthenticate = com.globo.auth.Autentica.AuthAPICheck(username, password, isEnableTwoFactor, "10.2.4.45", "BigBlueButton");
+	String meetingName = request.getParameter("meetingName");
+	
+	Boolean isAuthenticate = Autentica.AuthAPICheck(username, password, isEnableTwoFactor, hostApi, infoApi);
     
+	//Generate Random Meeting Id
+	String meetingID = String.valueOf(UUID.randomUUID());
+	
     if(isAuthenticate){
-	//if(true){
+  
 		String responseBody = com.globo.auth.Autentica.responseBody;
-    	JSONObject jsonObj = new JSONObject(responseBody);
-		//JSONObject jsonObj = new JSONObject("{'cn':['marcus.jorge'],'uidnumber':['40272'],'employeetype':['-'],'shadowmax':['365'],'mail':['william.silva@s2it.com.br'],'uid':['marcus.jorge'],'mobile':['0'],'sn':['Jorge'],'shadowlastchange':['16120'],'shadowmin':['1'],'employeenumber':['1162'],'initials':['Garcia'],'shadowwarning':['30'],'street':['---'],'homephone':['(21) 2483-6657'],'description':['infra'],'gidnumber':['40272']}");
+    	JSONObject jsonObj = new JSONObject(responseBody);  	
 
-         	//
-		// This is the URL for to join the meeting as moderator
-		//
-		String joinURL = getJoinURL(username, meetingID, "false", "<br>Bem-vindo ao %%CONFNAME%%.<br>", null, null);
+		String isRecord = "false";
+
+		// This is the URL for to join the meeting as moderator	
+		String joinURL = getJoinURL(username, meetingID, meetingName, isRecord, "<br>Bem-vindo ao %%CONFNAME%%.<br>", null, null);
 
 		String url = BigBlueButtonURL.replace("bigbluebutton/","meeting/");
-			
-		//meetingID = URLEncoder.encode(meetingID, "UTF-8");
-	
-		// Get bytes from string
-		byte[] byteArray = Base64.encodeBase64(meetingID.getBytes());
-	
-		// Print the encoded string
-		String encodedString = new String(byteArray);
-	
-		String inviteURL = url + "step3.jsp?meetingID=" + encodedString;
+
+		String encodedMeetingName = URLEncoder.encode(meetingName, "UTF-8");
+
+		String urlParameters = String.format("step3.jsp?meetingID=%s&meetingName=%s", meetingID, encodedMeetingName);
+
+		String inviteURL = url + urlParameters;
 %>
 	<h2 class="form-signin-heading">
-		Reunião '<%=meetingID%>' foi criada com sucesso!
+		Reunião '<%=StringEscapeUtils.escapeHtml(meetingName)%>' foi criada com sucesso!
 	</h2>
 
 	<br />
@@ -65,14 +66,14 @@
 		<h3>Passo 2 - Convide outras pessoas usando o seguinte link
 			(mostrado abaixo):</h3>
 		<p class="lead">
-			<%=inviteURL%>
+			<%=StringEscapeUtils.escapeHtml(inviteURL)%>
 		</p>
 	</div>
 
 	<div class="page-header">
 		<h3>Passo 3 - Clique no link abaixo para iniciar a sua reunião:</h3>
 		<p class="lead">
-			<a href="<%=joinURL%>">Iniciar reunião</a>
+			<a href="<%=StringEscapeUtils.escapeHtml(joinURL)%>">Iniciar reunião</a>
 		</p>
 	</div>
 	<%
@@ -130,7 +131,7 @@
 
               // Now set the actual message
               StringBuilder text1 = new StringBuilder();
-              text1.append("Reunião "+meetingID+" foi criada com sucesso!\n\n");
+              text1.append("Reunião "+meetingName+" foi criada com sucesso!\n\n");
               text1.append("Convide outras pessoas usando o seguinte link (mostrado abaixo): \n");
               text1.append(inviteURL);
               text1.append("\n\n");
@@ -148,7 +149,7 @@
 
               // Now set the actual message
               StringBuilder text2 = new StringBuilder();
-              text2.append("Reunião "+meetingID+" foi criada com sucesso!\n\n");
+              text2.append("Reunião "+meetingName+" foi criada com sucesso!\n\n");
               text2.append("Clique no link abaixo para iniciar a sua reunião: \n");
               text2.append(inviteURL);
 

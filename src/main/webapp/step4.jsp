@@ -2,6 +2,7 @@
 
 <%@ page import="java.util.regex.*"%>
 <%@ page import="org.apache.commons.codec.binary.Base64"%>
+<%@ page import="org.apache.commons.lang.StringEscapeUtils"%>
 
 <div class="container">
 
@@ -14,17 +15,15 @@
 	//
 	// The user is now attempting to joing the meeting
 	//
-	String encodedMeetingID = request.getParameter("meetingID");
+	String meetingID = request.getParameter("meetingID");
+	String mettingName = request.getParameter("meetingName");
 	String username = request.getParameter("username1");
 	
-	// Get bytes from string
-	byte[] byteArray = Base64.decodeBase64(encodedMeetingID.getBytes());
-	
-	// Print the decoded string
-	String meetingID = new String(byteArray);
-	
 	String url = BigBlueButtonURL.replace("bigbluebutton/","meeting/");
-	String enterURL = url + "step5.jsp?action=join&username=" + URLEncoder.encode(username, "UTF-8") + "&meetingID=" + URLEncoder.encode(meetingID, "UTF-8");
+	String encodedUserName = URLEncoder.encode(username, "UTF-8");
+	String urlParameters = String.format("step5.jsp?action=join&username=%s&meetingID=%s", encodedUserName, meetingID);
+	
+	String enterURL = url + urlParameters;
 
 	if (isMeetingRunning(meetingID).equals("true")) {
 		//
@@ -70,7 +69,7 @@ function mycallback() {
 <div class="control-group">
 	<img src="images/polling.gif"></img>
 	<div class="controls">
-		<h2 class="form-signin-heading">Reunião '<%=meetingID%>' ainda não foi iniciada!</h2>
+		<h2 class="form-signin-heading">Reunião '<%=StringEscapeUtils.escapeHtml(mettingName)%>' ainda não foi iniciada!</h2>
 	</div>
 </div>
 
@@ -78,9 +77,9 @@ function mycallback() {
 
 <div class="page-header">
 
-	<p class="lead">Olá <%=username%>,</p>
+	<p class="lead">Olá <%=StringEscapeUtils.escapeHtml(username)%>,</p>
 	
-	<p class="lead">Aguardando o moderador para começar a reunião <strong>'<%=meetingID%>'</strong>.</p>
+	<p class="lead">Aguardando o moderador para começar a reunião <strong>'<%=StringEscapeUtils.escapeHtml(mettingName)%>'</strong>.</p>
 	
 	<br />
 	

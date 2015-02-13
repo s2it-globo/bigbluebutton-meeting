@@ -10,7 +10,7 @@
 
 <h2 class="form-signin-heading">Crie sua própria reunião</h2>
 
-<br />
+<br/>
 
 <%
 	if(!request.getParameterMap().isEmpty() && request.getParameterMap().containsKey("auth")) {
@@ -35,9 +35,9 @@
 
 		<!-- Text input-->
 		<div class="control-group">
-			<label class="control-label" for="meetingId">Reunião</label>
+			<label class="control-label" for="meetingName">Reunião</label>
 			<div class="controls">
-				<input id="meetingId" name="meetingId" class="input-xlarge" type="text" autofocus required>
+				<input id="meetingName" name="meetingName" class="input-xlarge" type="text" autofocus required>
 			</div>
 		</div>
 
@@ -76,7 +76,7 @@
             errorClass: "meeting-error-class",
             validClass: "meeting-valid-class",
             rules:{
-            	meetingId:{
+            	meetingName:{
                 	required: true
                 },
                 username:{

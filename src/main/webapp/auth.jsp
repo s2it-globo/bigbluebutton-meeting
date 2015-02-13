@@ -30,6 +30,9 @@
 <div class="container">
 
 <%
+	//Generate Random Meeting Id
+	String meetingID = String.valueOf(UUID.randomUUID());
+
 	if (request.getParameterMap().isEmpty()) {
 		
 		//
@@ -54,9 +57,9 @@
 
 		<!-- Text input-->
 		<div class="control-group">
-			<label class="control-label" for="meetingId">Reunião</label>
+			<label class="control-label" for="meetingName">Reunião</label>
 			<div class="controls">
-				<input id="meetingId" name="meetingId" class="input-xlarge" type="text" autofocus required>
+				<input id="meetingName" name="meetingName" class="input-xlarge" type="text" autofocus required>
 			</div>
 		</div>
 
@@ -96,7 +99,7 @@
             errorClass: "meeting-error-class",
             validClass: "meeting-valid-class",
             rules:{
-            	meetingId:{
+            	meetingName:{
                 	required: true
                 },
                 username:{
@@ -119,7 +122,7 @@
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		String meetingID = request.getParameter("meetingId");
+		String meetingName = request.getParameter("meetingName");
 		
 		boolean auth = com.globo.sec.authapi.Functions.AuthAPICheck(username, password, false, "10.2.4.45", "BigBlueButton");
 		
@@ -130,13 +133,13 @@
 		//
 		// This is the URL for to join the meeting as moderator
 		//
-		String joinURL = getJoinURL(username, meetingID, "false", "<br>Bem-vindo ao %%CONFNAME%%.<br>", null, null);
+		String joinURL = getJoinURL(username, meetingID, meetingName, "false", "<br>Bem-vindo ao %%CONFNAME%%.<br>", null, null);
 
 		String url = BigBlueButtonURL.replace("bigbluebutton/","meeting/");
-		String inviteURL = url + "index.jsp?action=invite&meetingID=" + URLEncoder.encode(meetingID, "UTF-8");
+		String inviteURL = url + "index.jsp?action=invite&meetingID=" + meetingID +"&meetingName=" + URLEncoder.encode(meetingName);
 %>
 
-<h2 class="form-signin-heading">Reunião '<%=meetingID%>' foi criada com sucesso!</h2>
+<h2 class="form-signin-heading">Reunião '<%=meetingName%>' foi criada com sucesso!</h2>
 
 <br />
 
@@ -160,7 +163,7 @@
 		//
 		// The user is now attempting to joing the meeting
 		//
-		String meetingID = request.getParameter("meetingID");
+		String meetingName = request.getParameter("meetingName");
 		String username = request.getParameter("username1");
 		String password = request.getParameter("password1");
 		
@@ -171,7 +174,7 @@
 		}
 
 		String url = BigBlueButtonURL.replace("bigbluebutton/","meeting/");
-		String enterURL = url + "index.jsp?action=join&username=" + URLEncoder.encode(username, "UTF-8") + "&meetingID=" + URLEncoder.encode(meetingID, "UTF-8");
+		String enterURL = url + "index.jsp?action=join&username=" + URLEncoder.encode(username, "UTF-8") + "&meetingID=" + meetingID + "&meetingName=" + meetingName;
 
 		if (isMeetingRunning(meetingID).equals("true")) {
 			//
@@ -217,7 +220,7 @@ function mycallback() {
 <div class="control-group">
 	<img src="images/polling.gif"></img>
 	<div class="controls">
-		<h2 class="form-signin-heading">Reunião '<%=meetingID%>' ainda não foi iniciada!</h2>
+		<h2 class="form-signin-heading">Reunião '<%=meetingName%>' ainda não foi iniciada!</h2>
 	</div>
 </div>
 
@@ -227,7 +230,7 @@ function mycallback() {
 
 	<p class="lead">Olá <%=username%>,</p>
 	
-	<p class="lead">Aguardando o moderador para começar a reunião <strong>'<%=meetingID%>'</strong>.</p>
+	<p class="lead">Aguardando o moderador para começar a reunião <strong>'<%=meetingName%>'</strong>.</p>
 	
 	<br />
 	
@@ -243,10 +246,10 @@ function mycallback() {
 		// We have an invite to an active meeting.  Ask the person for their name 
 		// so they can join.
 		//
-		String meetingID = request.getParameter("meetingID");
+		String meetingName = request.getParameter("meetingName");
 %>
 
-<h2 class="form-signin-heading">Você foi convidado para participar da reunião '<%=meetingID%>'</h2>
+<h2 class="form-signin-heading">Você foi convidado para participar da reunião '<%=meetingName%>'</h2>
 
 <br />
 
@@ -276,6 +279,7 @@ function mycallback() {
 		<input type="hidden" name="action" value="enter">
 		
 		<input type="hidden" name="meetingID" value="<%=meetingID%>">
+		<input type="hidden" name="meetingName" value="<%=meetingName%>">
 		
 		<!-- Button -->
 		<div class="control-group">

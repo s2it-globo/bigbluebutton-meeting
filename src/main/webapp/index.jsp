@@ -155,7 +155,7 @@
 		//
 		// This is the URL for to join the meeting as moderator
 		//
-		String joinURL = getJoinURL(username, meetingID, "false", "<br>Bem-vindo ao %%CONFNAME%%.<br>", null, null);
+		String joinURL = getJoinURL(username, meetingID, meetingID, "false", "<br>Bem-vindo ao %%CONFNAME%%.<br>", null, null);
 
 		String url = BigBlueButtonURL.replace("bigbluebutton/","meeting/");
 		String inviteURL = url + "index.jsp?action=invite&meetingID=" + URLEncoder.encode(meetingID, "UTF-8");

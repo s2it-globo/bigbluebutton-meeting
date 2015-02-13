@@ -14,9 +14,12 @@
 	//
 	// We don't need to pass a meeting descritpion as it's already been set by the first time 
 	// the meeting was created.
-	String joinURL = getJoinURLViewer(request.getParameter("username"), request.getParameter("meetingID"));
+	String username = request.getParameter("username");
+	String meetingID = request.getParameter("meetingID");
+	
+	String joinURL = getJoinURLViewer(username, meetingID);
 		
-	if (joinURL.startsWith("http://")) {
+	if (joinURL.startsWith("http://") || joinURL.startsWith("https://")) {
 %>
 
 <script language="javascript" type="text/javascript">
