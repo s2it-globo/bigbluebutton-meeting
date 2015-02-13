@@ -53,7 +53,7 @@
 //    - metadata
 //    - xml (for pre-upload of slides)
 //
-public String createMeeting(String meetingID, String welcome, String moderatorPassword, String viewerPassword, Integer voiceBridge, String logoutURL) {
+public String createMeeting(String meetingID, String meetingName, String welcome, String moderatorPassword, String viewerPassword, Integer voiceBridge, String logoutURL) {
 	String base_url_create = BigBlueButtonURL + "api/create?";
 
 	String welcome_param = "";
@@ -93,8 +93,8 @@ public String createMeeting(String meetingID, String welcome, String moderatorPa
 	// Now create the URL
 	//
 
-	String create_parameters = "name=" + urlEncode(meetingID)
-		+ "&meetingID=" + urlEncode(meetingID) + welcome_param
+	String create_parameters = "name=" + urlEncode(meetingName)
+		+ "&meetingID=" + meetingID + welcome_param
 		+ attendee_password_param + moderator_password_param
 		+ voice_bridge_param + logoutURL_param;
 
@@ -133,7 +133,7 @@ public String getJoinMeetingURL(String username, String meetingID, String passwo
 	}
 
 
-	String join_parameters = "meetingID=" + urlEncode(meetingID)
+	String join_parameters = "meetingID=" + meetingID
 		+ "&fullName=" + urlEncode(username) + "&password="
 		+ urlEncode(password) + clientURL_param;
 
@@ -160,7 +160,7 @@ public String getJoinMeetingURL(String username, String meetingID, String passwo
 //
 //  Note this meeting will use username for meetingID
 
-public String getJoinURL(String username, String meetingID, String record, String welcome, Map<String, String> metadata, String xml) {
+public String getJoinURL(String username, String meetingID, String meetingName, String record, String welcome, Map<String, String> metadata, String xml) {
 	String base_url_create = BigBlueButtonURL + "api/create?";
 	String base_url_join = BigBlueButtonURL + "api/join?";
 
@@ -191,8 +191,8 @@ public String getJoinURL(String username, String meetingID, String record, Strin
 	// Note: We're hard-coding the password for moderator and attendee (viewer) for purposes of demo.
 	//
 
-	String create_parameters = "name=" + urlEncode(meetingID)
-		+ "&meetingID=" + urlEncode(meetingID) + welcome_param + voiceBridge_param
+	String create_parameters = "name=" + meetingName
+		+ "&meetingID=" + meetingID + welcome_param + voiceBridge_param
 		+ "&attendeePW=ap&moderatorPW=mp"
 		+ "&record=" + record + getMetaData( metadata );
 
@@ -215,7 +215,7 @@ public String getJoinURL(String username, String meetingID, String record, Strin
 		// Looks good, now return a URL to join that meeting
 		//  
 
-		String join_parameters = "meetingID=" + urlEncode(meetingID)
+		String join_parameters = "meetingID=" + meetingID
 			+ "&fullName=" + urlEncode(username) + "&password=mp";
 
 		return base_url_join + join_parameters + "&checksum="
@@ -234,7 +234,7 @@ public String getJoinURL(String username, String meetingID, String record, Strin
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-public String getJoinURLwithDynamicConfigXML(String username, String meetingID, String configXML) {
+public String getJoinURLwithDynamicConfigXML(String username, String meetingID, String meetingName, String configXML) {
     
     String base_url_create = BigBlueButtonURL + "api/create?";
     String base_url_join = BigBlueButtonURL + "api/join?";
@@ -258,8 +258,8 @@ public String getJoinURLwithDynamicConfigXML(String username, String meetingID, 
     // Note: We're hard-coding the password for moderator and attendee (viewer) for purposes of demo.
     //
 
-    String create_parameters = "name=" + urlEncode(meetingID)
-        + "&meetingID=" + urlEncode(meetingID) + voiceBridge_param
+    String create_parameters = "name=" + urlEncode(meetingName)
+        + "&meetingID=" + meetingID + voiceBridge_param
         + "&attendeePW=ap&moderatorPW=mp";
 
 
@@ -302,7 +302,7 @@ public String getJoinURLwithDynamicConfigXML(String username, String meetingID, 
 
     // Create the parameters we want to send to the server. 
     Map<String, String[]> paramsMap = new HashMap<String, String[]>();
-    paramsMap.put("meetingID", new String[]{urlEncode(meetingID)});
+    paramsMap.put("meetingID", new String[]{meetingID});
     paramsMap.put("configXML", new String[]{urlEncode(xml_param)});
 
     String baseString = createBaseString(paramsMap);
@@ -330,7 +330,7 @@ public String getJoinURLwithDynamicConfigXML(String username, String meetingID, 
     //
     // And finally return a URL to join that meeting using the specific config.xml
     //  
-    String join_parameters = "meetingID=" + urlEncode(meetingID) + "&fullName=" + urlEncode(username) + "&password=mp&configToken=" + configToken;
+    String join_parameters = "meetingID=" + meetingID + "&fullName=" + urlEncode(username) + "&password=mp&configToken=" + configToken;
 
     return base_url_join + join_parameters + "&checksum=" + checksum("join" + join_parameters + salt);
 
@@ -364,7 +364,7 @@ public String createBaseString(Map<String, String[]> params) {
 //
 // Create a meeting and return a URL to join it as moderator
 //
-public String getJoinURLXML(String username, String meetingID, String welcome, String xml) {
+public String getJoinURLXML(String username, String meetingID, String meetingName, String welcome, String xml) {
 	String base_url_create = BigBlueButtonURL + "api/create?";
 	String base_url_join = BigBlueButtonURL + "api/join?";
 
@@ -382,8 +382,8 @@ public String getJoinURLXML(String username, String meetingID, String welcome, S
                 xml_param = xml;
         }
 
-	String create_parameters = "name=" + urlEncode(meetingID)
-		+ "&meetingID=" + urlEncode(meetingID) + welcome_param
+	String create_parameters = "name=" + urlEncode(meetingName)
+		+ "&meetingID=" + meetingID + welcome_param
 		+ "&attendeePW=ap&moderatorPW=mp&voiceBridge=" + voiceBridge;
 
 	Document doc = null;
@@ -401,7 +401,7 @@ public String getJoinURLXML(String username, String meetingID, String welcome, S
 	if (doc.getElementsByTagName("returncode").item(0).getTextContent()
 			.trim().equals("SUCCESS")) {
 
-		String join_parameters = "meetingID=" + urlEncode(meetingID)
+		String join_parameters = "meetingID=" + meetingID
 			+ "&fullName=" + urlEncode(username) + "&password=mp";
 
 		return base_url_join + join_parameters + "&checksum="
@@ -420,7 +420,7 @@ public String getJoinURLXML(String username, String meetingID, String welcome, S
 //
 public String getJoinURLViewer(String username, String meetingID) {
 	String base_url_join = BigBlueButtonURL + "api/join?";
-	String join_parameters = "meetingID=" + urlEncode(meetingID)
+	String join_parameters = "meetingID=" + meetingID
 		+ "&fullName=" + urlEncode(username) + "&password=ap";
 
 	return base_url_join + join_parameters + "&checksum="
@@ -432,7 +432,7 @@ public String getJoinURLViewer(String username, String meetingID) {
 // getURLisMeetingRunning() -- return a URL that the client can use to poll for whether the given meeting is running
 //
 public String getURLisMeetingRunning(String meetingID) {
-	String meetingParameters = "meetingID=" + urlEncode(meetingID);
+	String meetingParameters = "meetingID=" + meetingID;
 	return BigBlueButtonURL + "api/isMeetingRunning?" + meetingParameters
 		+ "&checksum="
 		+ checksum("isMeetingRunning" + meetingParameters + salt);	
@@ -464,7 +464,7 @@ public String isMeetingRunning(String meetingID) {
 }
 
 public String getMeetingInfoURL(String meetingID, String password) {
-	String meetingParameters = "meetingID=" + urlEncode(meetingID)
+	String meetingParameters = "meetingID=" + meetingID
 		+ "&password=" + password;
 	return BigBlueButtonURL + "api/getMeetingInfo?" + meetingParameters
 		+ "&checksum="
@@ -546,7 +546,7 @@ public String getMeetings() {
 
 
 public String getendMeetingURL(String meetingID, String moderatorPassword) {
-	String end_parameters = "meetingID=" + urlEncode(meetingID) + "&password="
+	String end_parameters = "meetingID=" + meetingID + "&password="
 		+ urlEncode(moderatorPassword);
 	return BigBlueButtonURL + "api/end?" + end_parameters + "&checksum="
 		+ checksum("end" + end_parameters + salt);
@@ -583,7 +583,7 @@ public String endMeeting(String meetingID, String moderatorPassword) {
 //////////////////////////////////////////////////////////////////////////////
 
 public String getRecordingsURL(String meetingID) {
-	String record_parameters = "meetingID=" + urlEncode(meetingID);
+	String record_parameters = "meetingID=" + meetingID;
 	return BigBlueButtonURL + "api/getRecordings?" + record_parameters + "&checksum="
 		+ checksum("getRecordings" + record_parameters + salt);
 }
