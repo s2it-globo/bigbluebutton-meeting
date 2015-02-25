@@ -1,4 +1,4 @@
-Na raz do projeto, execute os seguintes comandos:
+Na raiz do projeto, execute os seguintes comandos:
 
 gradle resolveDeps
 
