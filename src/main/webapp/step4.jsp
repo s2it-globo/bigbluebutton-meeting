@@ -21,11 +21,13 @@
 	
 	String url = BigBlueButtonURL.replace("bigbluebutton/","meeting/");
 	String encodedUserName = URLEncoder.encode(username, "UTF-8");
-	String urlParameters = String.format("step5.jsp?action=join&username=%s&meetingID=%s", encodedUserName, meetingID);
+	String encodedMettingName = URLEncoder.encode(mettingName, "UTF-8");
+
+	String urlParameters = String.format("step5.jsp?action=join&username=%s&meetingName=%s", encodedUserName, encodedMettingName);
 	
 	String enterURL = url + urlParameters;
 
-	if (isMeetingRunning(meetingID).equals("true")) {
+	if (isMeetingRunning(mettingName).equals("true")) {
 		//
 		// The meeting has started -- bring the user into the meeting.
 		//
@@ -40,7 +42,7 @@
 			//
 			// The meeting has not yet started, so check until we get back the status that the meeting is running
 			//
-			String checkMeetingStatus = getURLisMeetingRunning(meetingID);
+			String checkMeetingStatus = getURLisMeetingRunning(mettingName);
 %>
 
 <script type="text/javascript">
@@ -48,7 +50,7 @@
 $(document).ready(function(){
 		$.jheartbeat.set({
 		   url: "<%=checkMeetingStatus%>",
-		   delay: 5000
+		   delay: 500
 		}, function () {
 			mycallback();
 		});

@@ -20,8 +20,11 @@
 	// We have an invite to an active meeting. Ask the person for their name 
 	// so they can join.
 	//
+
 	String meetingID = request.getParameter("meetingID");
 	String meetingName = request.getParameter("meetingName");
+	String userId = request.getParameter("userId");
+	String authToken = request.getParameter("authToken");
 
 %>
 
@@ -46,6 +49,8 @@
 		
 		<input type="hidden" name="meetingID" value="<%=meetingID%>">
 		<input type="hidden" name="meetingName" value="<%=meetingName%>">
+		<input type="hidden" name="userId" value="<%=userId%>">
+		<input type="hidden" name="authToken" value="<%=authToken%>">
 		
 		<!-- Button -->
 		<div class="control-group">
