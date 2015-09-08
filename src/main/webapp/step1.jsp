@@ -8,7 +8,7 @@
 
 <div class="container">
 
-<h2 class="form-signin-heading">Crie sua prÃ³pria reuniÃ£o</h2>
+<h2 class="form-signin-heading">Crie sua própria reunião</h2>
 
 <br/>
 
@@ -18,7 +18,7 @@
 %>
 
 <div class="alert alert-error">
-	UsuÃ¡rio e/ou senha invÃ¡lido.
+	Usuário e/ou senha inválidos.
 </div>
 
 <%
@@ -44,7 +44,7 @@
 
 		<!-- Text input-->
 		<div class="control-group">
-			<label class="control-label" for="meetingName">ReuniÃ£o</label>
+			<label class="control-label" for="meetingName">Reunião</label>
 			<div class="controls">
 				<input id="meetingName" name="meetingName" class="input-xlarge" type="text" autofocus required>
 			</div>
@@ -52,7 +52,7 @@
 
 		<!-- Text input-->
 		<div class="control-group">
-			<label class="control-label" for="username">UsuÃ¡rio</label>
+			<label class="control-label" for="username">Usuário</label>
 			<div class="controls">
 				<input id="username" name="username" class="input-xlarge" type="text" autofocus required>
 			</div>
@@ -63,7 +63,7 @@
 			<label class="control-label" for="password">Senha</label>
 			<div class="controls">
 				<input id="password" name="password" class="input-xlarge" type="password" autofocus required>
-				<%if(isEnableTwoFactor){%><span class="help-block">Two-factor habilitado (Senha+Token) sem espaÃ§os.</span><%}%>
+				<%if(isEnableTwoFactor){%><span class="help-block">Two-factor habilitado (Senha+Token) sem espaços.</span><%}%>
 			</div>
 		</div>
 		
@@ -71,7 +71,7 @@
 		<div class="control-group">
 			<label class="control-label" for="submit-button"></label>
 			<div class="controls">
-				<button id="submit-button" name="submit-button" class="btn btn-primary">Criar reuniÃ£o</button>
+				<button id="submit-button" name="submit-button" class="btn btn-primary">Criar reunião</button>
 			</div>
 		</div>
 		

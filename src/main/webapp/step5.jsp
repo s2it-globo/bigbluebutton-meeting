@@ -16,9 +16,10 @@
 	// the meeting was created.
 	String username = request.getParameter("username");
 	String meetingName = request.getParameter("meetingName");
+	String viewType = request.getParameter("viewType");
 	//String authToken = request.getParameter("authToken");
 	
-	
+	String joinUrlFlash = getJoinURLViewer(username, meetingName);
 	String joinURL = getJoinURLViewerHtml5(username, meetingName);
 	Document doc = parseXml(getURL(joinURL));
 
@@ -27,12 +28,18 @@
 	String authToken = doc.getElementsByTagName("auth_token").item(0).getTextContent();
 	String ip = BigBlueButtonURL.split("\\/bigbluebutton")[0];
 	String html5url = ip + "/html5client/" + meetingId + "/" + userId + "/" + authToken;
+	
+	String url_to_redirect = html5url;
+	
+	if(viewType.equals("flash")){
+		url_to_redirect = joinUrlFlash ;
+   }
 		
 	if (joinURL.startsWith("http://") || joinURL.startsWith("https://")) {
 %>
 
 <script language="javascript" type="text/javascript">
-  window.location.href="<%=html5url%>";
+  window.location.href="<%=url_to_redirect%>";
 </script>
 
 <%
@@ -42,7 +49,7 @@
 
 Error: getJoinURL() failed
 
-<p /><%=joinURL%> 
+<p /><%=url_to_redirect%> 
 
 <%
  	}

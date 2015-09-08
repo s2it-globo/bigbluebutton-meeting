@@ -18,12 +18,13 @@
 	String meetingID = request.getParameter("meetingID");
 	String mettingName = request.getParameter("meetingName");
 	String username = request.getParameter("username1");
+	String viewType = request.getParameter("viewType");
 	
 	String url = BigBlueButtonURL.replace("bigbluebutton/","meeting/");
 	String encodedUserName = URLEncoder.encode(username, "UTF-8");
 	String encodedMettingName = URLEncoder.encode(mettingName, "UTF-8");
 
-	String urlParameters = String.format("step5.jsp?action=join&username=%s&meetingName=%s", encodedUserName, encodedMettingName);
+	String urlParameters = String.format("step5.jsp?action=join&username=%s&meetingName=%s&viewType=%s", encodedUserName, encodedMettingName, viewType);
 	
 	String enterURL = url + urlParameters;
 
@@ -69,6 +70,7 @@ function mycallback() {
 </script>
 
 <div class="control-group">
+	teste ======= <%=viewType %>
 	<img src="images/polling.gif"></img>
 	<div class="controls">
 		<h2 class="form-signin-heading">Reunião '<%=StringEscapeUtils.escapeHtml(mettingName)%>' ainda não foi iniciada!</h2>

@@ -1,9 +1,5 @@
 <%@ include file="header.jsp"%>
 
-
-
-
-
 <%@ page import="java.util.*"%>
 
 <%@ page import="java.io.FileNotFoundException"%>
@@ -65,32 +61,32 @@
 	String meetingName = request.getParameter("meetingName");
 	String viewType = request.getParameter("viewType");
 
-	//Boolean isAuthenticate = Autentica.AuthAPICheck(username, password, isEnableTwoFactor, hostApi, infoApi);
-    Boolean isAuthenticate = true;
-
+	Boolean isAuthenticate = Autentica.AuthAPICheck(username, password, isEnableTwoFactor, hostApi, infoApi);
+   
 	//Generate Random Meeting Id
-	//String meetingID = String.valueOf(UUID.randomUUID());
+	String meetingIdFlash = String.valueOf(UUID.randomUUID());
 
     if(isAuthenticate){
-		//String responseBody = com.globo.auth.Autentica.responseBody;
-    	//JSONObject jsonObj = new JSONObject(responseBody);  	
+		String responseBody = com.globo.auth.Autentica.responseBody;
+    	JSONObject jsonObj = new JSONObject(responseBody);  	
 
 		String isRecord = "false";
 
 		// This is the URL for to join the meeting as moderator	
 
-		//String joinURL = getJoinURL(username, meetingID, meetingName, isRecord, "<br>Bem-vindo ao %%CONFNAME%%.<br>", null, null);
-
+		//mount URL for HTML5
 		String joinUrlHtml5 = getJoinURLHTML5(username, meetingName, isRecord, "<br>Bem-vindo ao %%CONFNAME%%.<br>", null, null);
-
+											 
 		Document doc = parseXml(getURL(joinUrlHtml5));
-
 		//Extract data from the xml
 		String meetingId = doc.getElementsByTagName("meeting_id").item(0).getTextContent();
 		String userId = doc.getElementsByTagName("user_id").item(0).getTextContent();
 		String authToken = doc.getElementsByTagName("auth_token").item(0).getTextContent();
 		String ip = BigBlueButtonURL.split("\\/bigbluebutton")[0];
 		String html5url = ip + "/html5client/" + meetingId + "/" + userId + "/" + authToken;
+		
+		//String joinURL = "aqui join url esta vazio ainda";
+		String joinURL = getJoinURLViewer(username, meetingName);	
 
 		String encodedMeetingName = URLEncoder.encode(meetingName, "UTF-8");
 
@@ -98,12 +94,16 @@
 
 		String url = BigBlueButtonURL.replace("bigbluebutton/","meeting/");
 		String inviteURL = url + urlParameters;
+		
+		String url_to_redirect = html5url;
+		
+		if(viewType.equals("flash")){
+			url_to_redirect = joinURL ;
+	   }
+
 %>
-
 	<h2 class="form-signin-heading">
-
-		Reuni&atilde;o '<%=StringEscapeUtils.escapeHtml(meetingName)%>' foi criada com sucesso!
-
+		Reunião '<%=StringEscapeUtils.escapeHtml(meetingName)%>' foi criada com sucesso!
 	</h2>
 
 
@@ -132,8 +132,7 @@
 		<h3>Passo 3 - Clique no link abaixo para iniciar a sua reuni&atilde;o:</h3>
 
 		<p class="lead">
-
-			<a href="<%=StringEscapeUtils.escapeHtml(html5url)%>">Iniciar reuni&atilde;o</a>
+			<a href="<%=StringEscapeUtils.escapeHtml(url_to_redirect)%>">Iniciar reuni&atilde;o</a>
 
 		</p>
 
@@ -179,10 +178,7 @@
 
          
 
-      //final String to = jsonObj.getJSONArray("mail").getString(0);
-
-      final String to = "jotage_sales@hotmail.com";
-
+      final String to = jsonObj.getJSONArray("mail").getString(0);
      
 
       // Get system properties
