@@ -16,18 +16,19 @@
 	// the meeting was created.
 	String username = request.getParameter("username");
 	String meetingName = request.getParameter("meetingName");
+	String meetingId = request.getParameter("meetingID");
 	String viewType = request.getParameter("viewType");
 	//String authToken = request.getParameter("authToken");
 	
-	String joinUrlFlash = getJoinURLViewer(username, meetingName);
-	String joinURL = getJoinURLViewerHtml5(username, meetingName);
+	String joinUrlFlash = getJoinURLViewer(username, meetingId);
+	String joinURL = getJoinURLViewerHtml5(username, meetingId);
 	Document doc = parseXml(getURL(joinURL));
 
-	String meetingId = doc.getElementsByTagName("meeting_id").item(0).getTextContent();
+	String meetingId2 = doc.getElementsByTagName("meeting_id").item(0).getTextContent();
 	String userId = doc.getElementsByTagName("user_id").item(0).getTextContent();
 	String authToken = doc.getElementsByTagName("auth_token").item(0).getTextContent();
 	String ip = BigBlueButtonURL.split("\\/bigbluebutton")[0];
-	String html5url = ip + "/html5client/" + meetingId + "/" + userId + "/" + authToken;
+	String html5url = ip + "/html5client/" + meetingId2 + "/" + userId + "/" + authToken;
 	
 	String url_to_redirect = html5url;
 	

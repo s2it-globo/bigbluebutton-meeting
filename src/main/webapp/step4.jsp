@@ -24,11 +24,11 @@
 	String encodedUserName = URLEncoder.encode(username, "UTF-8");
 	String encodedMettingName = URLEncoder.encode(mettingName, "UTF-8");
 
-	String urlParameters = String.format("step5.jsp?action=join&username=%s&meetingName=%s&viewType=%s", encodedUserName, encodedMettingName, viewType);
+	String urlParameters = String.format("step5.jsp?action=join&username=%s&meetingName=%s&meetingID=%s&viewType=%s", encodedUserName, encodedMettingName, meetingID, viewType);
 	
 	String enterURL = url + urlParameters;
 
-	if (isMeetingRunning(mettingName).equals("true")) {
+	if (isMeetingRunning(meetingID).equals("true")) {
 		//
 		// The meeting has started -- bring the user into the meeting.
 		//
@@ -43,7 +43,7 @@
 			//
 			// The meeting has not yet started, so check until we get back the status that the meeting is running
 			//
-			String checkMeetingStatus = getURLisMeetingRunning(mettingName);
+			String checkMeetingStatus = getURLisMeetingRunning(meetingID);
 %>
 
 <script type="text/javascript">
@@ -70,7 +70,6 @@ function mycallback() {
 </script>
 
 <div class="control-group">
-	teste ======= <%=viewType %>
 	<img src="images/polling.gif"></img>
 	<div class="controls">
 		<h2 class="form-signin-heading">Reunião '<%=StringEscapeUtils.escapeHtml(mettingName)%>' ainda não foi iniciada!</h2>
