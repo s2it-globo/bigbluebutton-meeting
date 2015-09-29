@@ -3,7 +3,7 @@
 String salt = "bced839c079b4fe2543aefa73c7f6a57";
 
 // This is the URL for the BigBlueButton server
-String BigBlueButtonURL = "http://172.16.42.29/bigbluebutton/";
+String BigBlueButtonURL = "http://172.16.42.36/bigbluebutton/";
 
 
 // Configuration Autentica.AuthAPICheck
