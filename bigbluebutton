@@ -2,7 +2,17 @@ server {
      listen   80;
      server_name 172.16.42.29;
 
-     access_log  /var/log/nginx/bigbluebutton.access.log;
+    listen 443 ssl;
+    ssl_certificate /etc/nginx/ssl/bigbluebutton.crt;
+    ssl_certificate_key /etc/nginx/ssl/bigbluebutton.key;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers "ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS:!AES256";
+    ssl_prefer_server_ciphers on;
+    ssl_dhparam /etc/nginx/ssl/dhp-2048.pem;
+
+    access_log  /var/log/nginx/bigbluebutton.access.log;
 
 	 # Handle RTMPT (RTMP Tunneling).  Forwards requests
 	 # to Red5 on port 5080
@@ -40,12 +50,12 @@ server {
            include    fastcgi_params;
        }
 
-	# BigBlueButton landing page.
-  #     location / {
-  #         root   /var/www/bigbluebutton-default;
-  #         index  index.html index.htm;
-	#   expires 1m;
-  #      }
+	#BigBlueButton landing page.
+      location / {
+          root   /var/www/bigbluebutton-default;
+          index  index.html index.htm;
+	        expires 1m;
+      }
 
 	# Include specific rules for record and playback
         include /etc/bigbluebutton/nginx/*.nginx;
