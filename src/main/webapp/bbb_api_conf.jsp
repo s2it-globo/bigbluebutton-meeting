@@ -1,9 +1,9 @@
 <%!
 // This is the security salt that must match the value set in the BigBlueButton server
-String salt = "bced839c079b4fe2543aefa73c7f6a57";
+String salt = "";
 
 // This is the URL for the BigBlueButton server
-String BigBlueButtonURL = "http://172.16.42.29/bigbluebutton/";
+String BigBlueButtonURL = "https://172.16.42.230/bigbluebutton/";
 
 
 // Configuration Autentica.AuthAPICheck
