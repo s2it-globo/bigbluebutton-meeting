@@ -1,6 +1,6 @@
 <%!
 // This is the security salt that must match the value set in the BigBlueButton server
-String salt = "";
+String salt = "ccfbc08f765bf28c9c51ed27922358e8";
 
 // This is the URL for the BigBlueButton server
 String BigBlueButtonURL = "https://172.16.42.230/bigbluebutton/";
