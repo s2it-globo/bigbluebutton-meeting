@@ -37,8 +37,8 @@
 		<div class="control-group">
 			<label class="control-label" for="meetingName">Visualizar com</label>
 			<div class="controls">
-				<input class="input-xlarge" type="radio" name="viewType" value="html5" checked> Html5
 				<input class="input-xlarge" type="radio" name="viewType" value="flash"> Flash
+				<input class="input-xlarge" type="radio" name="viewType" value="html5" checked> Html5
 			</div>
 		</div>
 
