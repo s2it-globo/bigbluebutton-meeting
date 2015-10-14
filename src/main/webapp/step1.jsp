@@ -38,7 +38,7 @@
 			<label class="control-label" for="meetingName">Visualizar com</label>
 			<div class="controls">
 				<input class="input-xlarge" type="radio" name="viewType" value="flash" checked> Flash
-				<input class="input-xlarge" type="radio" name="viewType" value="html5"> Html5
+				<input class="input-xlarge" type="radio" name="viewType" value="html5"> HTML5(mobile-viewer)
 			</div>
 		</div>
 

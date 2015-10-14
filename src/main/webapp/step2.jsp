@@ -58,12 +58,11 @@
 	String meetingName = request.getParameter("meetingName");
 	String viewType = request.getParameter("viewType");
 
-	//Boolean isAuthenticate = Autentica.AuthAPICheck(username, password, isEnableTwoFactor, hostApi, infoApi);
-    Boolean isAuthenticate = true;
+	Boolean isAuthenticate = Autentica.AuthAPICheck(username, password, isEnableTwoFactor, hostApi, infoApi);
 
     if(isAuthenticate){
-		//String responseBody = com.globo.auth.Autentica.responseBody;
-    	//JSONObject jsonObj = new JSONObject(responseBody);  	
+		String responseBody = com.globo.auth.Autentica.responseBody;
+    	JSONObject jsonObj = new JSONObject(responseBody);  	
 
 		String isRecord = "false";
 
@@ -175,9 +174,9 @@
 
          
 
-      //final String to = jsonObj.getJSONArray("mail").getString(0);
+      final String to = jsonObj.getJSONArray("mail").getString(0);
 
-      final String to = "jotage_sales@hotmail.com";
+      //final String to = "jotage_sales@hotmail.com";
 
      
 
