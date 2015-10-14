@@ -10,4 +10,6 @@ String BigBlueButtonURL = "https://172.16.42.29/bigbluebutton/";
 String hostApi = "10.2.45.22";
 String infoApi = "BigBlueButton";
 boolean isEnableTwoFactor = false;
+boolean enableSmtpAuthentication = false;
+boolean enableAuthenticationLDAP = true;
 %>

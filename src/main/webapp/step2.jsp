@@ -58,7 +58,14 @@
 	String meetingName = request.getParameter("meetingName");
 	String viewType = request.getParameter("viewType");
 
-	Boolean isAuthenticate = Autentica.AuthAPICheck(username, password, isEnableTwoFactor, hostApi, infoApi);
+	Boolean isAuthenticate = false;
+
+	if(enableAuthenticationLDAP){
+		isAuthenticate = Autentica.AuthAPICheck	(username, password, isEnableTwoFactor, hostApi, infoApi);
+	}
+	else{
+		isAuthenticate = true;
+	}
 
     if(isAuthenticate){
 		String responseBody = com.globo.auth.Autentica.responseBody;
@@ -88,7 +95,7 @@
 			String html5url = ip + "/html5client/" + meetingId2 + "/" + userId + "/" + authToken;
 
 			url_to_redirect = html5url;
-	   }
+	  	}
 
 		String encodedMeetingName = URLEncoder.encode(meetingName, "UTF-8");
 
@@ -189,28 +196,27 @@
       // Using SSL 
 
       properties.put("mail.smtp.host", host);
-
-      properties.put("mail.smtp.socketFactory.port", port);
-
-      properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-
-      properties.put("mail.smtp.auth", "true");
-
       properties.put("mail.smtp.port", port);
+      properties.put("mail.smtp.auth", "false");
 
-		
 
 	  // Get the default Session object.
+	  Session s = Session.getInstance(properties);
 
-	  Session s = Session.getInstance(properties, new javax.mail.Authenticator() {
+	  if (enableSmtpAuthentication){
+	  	properties.put("mail.smtp.socketFactory.port", port);
+      	properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+      	properties.put("mail.smtp.auth", "true");
 
-	     protected PasswordAuthentication getPasswordAuthentication() {
+		Session s = Session.getInstance(properties, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(user, pass);
 
-			return new PasswordAuthentication(user, pass);
+				 }
 
-		 }
+			  });
 
-	  });
+		}
 
 
 
