@@ -9,5 +9,5 @@ String BigBlueButtonURL = "https://172.16.42.29/bigbluebutton/";
 // Configuration Autentica.AuthAPICheck
 String hostApi = "10.2.45.22";
 String infoApi = "BigBlueButton";
-boolean isEnableTwoFactor = true;
+boolean isEnableTwoFactor = false;
 %>
