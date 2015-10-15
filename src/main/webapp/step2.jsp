@@ -68,7 +68,7 @@
 		String url = BigBlueButtonURL.replace("bigbluebutton/","meeting/");
 		String inviteURL = url + urlParameters;
 %>
-	<h2 class="form-signin-heading">Reunião '<%=StringEscapeUtils.escapeHtml(meetingName)%>' foi criada com sucesso!</h2>
+	<h2 class="form-signin-heading">Reuni&atilde;o '<%=StringEscapeUtils.escapeHtml(meetingName)%>' foi criada com sucesso!</h2>
 	<br />
 	<div class="page-header">
 		<h3>Passo 2 - Convide outras pessoas usando o seguinte link (mostrado abaixo):</h3>
