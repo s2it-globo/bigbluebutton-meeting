@@ -7,9 +7,14 @@ String BigBlueButtonURL = "https://172.16.42.29/bigbluebutton/";
 
 
 // Configuration Autentica.AuthAPICheck
-String hostApi = "10.2.45.22";
-String infoApi = "BigBlueButton";
-boolean isEnableTwoFactor = false;
-boolean enableSmtpAuthentication = false;
 boolean enableAuthenticationLDAP = false;
+boolean isEnableTwoFactor        = false;
+String hostApi                   = "10.2.45.22";
+String infoApi                   = "BigBlueButton";
+
+// Send e-mail
+boolean enableEmailSend = false;
+boolean enableSmtpAuthentication = false;
+
+
 %>
