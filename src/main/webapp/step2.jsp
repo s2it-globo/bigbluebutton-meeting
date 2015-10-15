@@ -107,7 +107,7 @@
 			final String pass = prop.getProperty("pass");
 			final String port = prop.getProperty("port");
 	
-			if(enableAuthenticationLDAP){
+			if (enableAuthenticationLDAP) {
 	        		String responseBody = Autentica.responseBody;
 	                	JSONObject jsonObj = new JSONObject(responseBody);
 	                	final String to = jsonObj.getJSONArray("mail").getString(0);
