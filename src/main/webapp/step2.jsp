@@ -57,9 +57,11 @@
 	String password = request.getParameter("password");
 	String meetingName = request.getParameter("meetingName");
 	String viewType = request.getParameter("viewType");
-
+	
 	Boolean isAuthenticate = false;
-
+	
+	JSONObject jsonObj;
+	
 	if(enableAuthenticationLDAP){
 		isAuthenticate = Autentica.AuthAPICheck(username, password, isEnableTwoFactor, hostApi, infoApi);
 	}
@@ -70,7 +72,7 @@
     if(isAuthenticate){
     	if(enableAuthenticationLDAP){
     		String responseBody = com.globo.auth.Autentica.responseBody;
-    		JSONObject jsonObj = new JSONObject(responseBody); 
+    		jsonObj = new JSONObject(responseBody); 
     	}
 
 		String isRecord = "false";
@@ -109,7 +111,7 @@
 
 %>
 	<h2 class="form-signin-heading">
-		Reuni„o '<%=StringEscapeUtils.escapeHtml(meetingName)%>' foi criada com sucesso!
+		Reuni√£o '<%=StringEscapeUtils.escapeHtml(meetingName)%>' foi criada com sucesso!
 	</h2>
 
 
@@ -157,7 +159,7 @@
 
 	  if (inputStream == null) {
 
-		System.out.println("Arquivo n„o encontrado.");
+		System.out.println("Arquivo n√£o encontrado.");
 
 	  	throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
 
@@ -169,47 +171,42 @@
 
 	  // get the property value and print it out
 
-      final String subject = prop.getProperty("subject");
+	final String subject = prop.getProperty("subject");
+	final String from = prop.getProperty("from");
+	final String host = prop.getProperty("host");
+	final String user = prop.getProperty("user");
+	final String pass = prop.getProperty("pass");
+	final String port = prop.getProperty("port");
+	final String to = "jotage_sales@hotmail.com";  
+	if(enableAuthenticationLDAP){
+		to = jsonObj.getJSONArray("mail").getString(0);
+	}
+	
+	// Get system properties
+	Properties properties = System.getProperties();
 
-	  final String from = prop.getProperty("from");
+	// Using SSL 
+	properties.put("mail.smtp.host", host);
+	properties.put("mail.smtp.port", port);
+	properties.put("mail.smtp.auth", "false");
+	
+	if (enableSmtpAuthentication){
+		//properties.put("mail.smtp.socketFactory.port", port);
+		//properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		//properties.put("mail.smtp.auth", "true");
 
-	  final String host = prop.getProperty("host");
-
-	  final String user = prop.getProperty("user");
-
-	  final String pass = prop.getProperty("pass");
-
-	  final String port = prop.getProperty("port");
-
-      final String to = "jotage_sales@hotmail.com";  
-	  if(enableAuthenticationLDAP){
-	  		to = jsonObj.getJSONArray("mail").getString(0);
-      }     
-
-      // Get system properties
-
-      Properties properties = System.getProperties();
-
-      // Using SSL 
-      properties.put("mail.smtp.host", host);
-      properties.put("mail.smtp.port", port);
-      properties.put("mail.smtp.auth", "false");
-
-	  if (enableSmtpAuthentication){
-	  	properties.put("mail.smtp.socketFactory.port", port);
-      	properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-      	properties.put("mail.smtp.auth", "true");
-
-		Session s = Session.getInstance(properties, new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(user, pass);
-			}
-		});
-
-		}else{
-			// Get the default Session object.
-	  		Session s = Session.getInstance(properties);
-		}
+		//Session s = Session.getInstance(properties, new javax.mail.Authenticator() {
+		//	protected PasswordAuthentication getPasswordAuthentication() {
+		//		return new PasswordAuthentication(user, pass);
+		//	}
+		//});
+		
+		Session s = Session.getInstance(properties);
+		
+	}else{
+		// Get the default Session object.
+		Session s = Session.getInstance(properties);
+	}
 
           try {
 
@@ -243,7 +240,7 @@
 
               StringBuilder text1 = new StringBuilder();
 
-              text1.append("Reuni„o "+meetingName+" foi criada com sucesso!\n\n");
+              text1.append("Reuni√£o "+meetingName+" foi criada com sucesso!\n\n");
 
               text1.append("Convide outras pessoas usando o seguinte link (mostrado abaixo): \n");
 
@@ -251,7 +248,7 @@
 
               text1.append("\n\n");
 
-              text1.append("Clique no link abaixo para iniciar a sua reuni„o: \n");
+              text1.append("Clique no link abaixo para iniciar a sua reuni√£o: \n");
 
               text1.append(url_to_redirect);
 
@@ -279,9 +276,9 @@
 
               StringBuilder text2 = new StringBuilder();
 
-              text2.append("Reuni„o "+meetingName+" foi criada com sucesso!\n\n");
+              text2.append("Reuni√£o "+meetingName+" foi criada com sucesso!\n\n");
 
-              text2.append("Clique no link abaixo para iniciar a sua reuni„o: \n");
+              text2.append("Clique no link abaixo para iniciar a sua reuni√£o: \n");
 
               text2.append(inviteURL);
 
