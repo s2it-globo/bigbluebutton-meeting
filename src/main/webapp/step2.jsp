@@ -108,9 +108,9 @@
 			final String port = prop.getProperty("port");
 	
 			if (enableAuthenticationLDAP) {
-	        		String responseBody = Autentica.responseBody;
-	                	JSONObject jsonObj = new JSONObject(responseBody);
-	                	final String to = jsonObj.getJSONArray("mail").getString(0);
+	        		//String resBody = Autentica.responseBody;
+	                	//JSONObject jsonObj = new JSONObject(resBody);
+	                	//final String to = jsonObj.getJSONArray("mail").getString(0);
 	        	}else{
 	        		final String to = "avner.goncalves@s2it.com.br";
 	        	}
