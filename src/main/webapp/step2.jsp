@@ -29,7 +29,7 @@
 	
 	Boolean isAuthenticate = false;
 	
-	if(enableAuthenticationLDAP){
+	if(enableAuthAPI){
 		isAuthenticate = Autentica.AuthAPICheck(username, password, isEnableTwoFactor, hostApi, infoApi);
 	}else{
 		isAuthenticate = true;
@@ -105,13 +105,13 @@
 			final String pass = prop.getProperty("pass");
 			final String port = prop.getProperty("port");
 			
-			//if (enableAuthenticationLDAP) {
+			if (enableAuthAPI) {
 	        		//String resBody = Autentica.responseBody;
 	                	//JSONObject jsonObj = new JSONObject(resBody);
 	                	//String mail = jsonObj.getJSONArray("mail").getString(0);
-			//}else{
+			}else{
 				String mail = "avner.goncalves@s2it.com.br";
-	        	//}
+	        	}
 	        	
 	        	final String to = mail;
 	        	
