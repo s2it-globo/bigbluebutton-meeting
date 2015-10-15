@@ -60,19 +60,17 @@
 	
 	Boolean isAuthenticate = false;
 	
-	JSONObject jsonObj;
-	
 	if(enableAuthenticationLDAP){
 		isAuthenticate = Autentica.AuthAPICheck(username, password, isEnableTwoFactor, hostApi, infoApi);
-	}
-	else{
+	}else{
 		isAuthenticate = true;
 	}
 
     if(isAuthenticate){
+    
     	if(enableAuthenticationLDAP){
     		String responseBody = com.globo.auth.Autentica.responseBody;
-    		jsonObj = new JSONObject(responseBody); 
+    		JSONObject jsonObj = new JSONObject(responseBody); 
     	}
 
 		String isRecord = "false";
@@ -177,9 +175,11 @@
 	final String user = prop.getProperty("user");
 	final String pass = prop.getProperty("pass");
 	final String port = prop.getProperty("port");
-	final String to = "jotage_sales@hotmail.com";  
+	
 	if(enableAuthenticationLDAP){
-		to = jsonObj.getJSONArray("mail").getString(0);
+		final String to = jsonObj.getJSONArray("mail").getString(0);
+	}else{
+		final String to = 'avner.goncalves@s2it.com.br';
 	}
 	
 	// Get system properties
@@ -190,7 +190,7 @@
 	properties.put("mail.smtp.port", port);
 	properties.put("mail.smtp.auth", "false");
 	
-	if (enableSmtpAuthentication){
+	//if (enableSmtpAuthentication){
 		//properties.put("mail.smtp.socketFactory.port", port);
 		//properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		//properties.put("mail.smtp.auth", "true");
@@ -201,12 +201,10 @@
 		//	}
 		//});
 		
-		Session s = Session.getInstance(properties);
-		
-	}else{
+	//}else{
 		// Get the default Session object.
 		Session s = Session.getInstance(properties);
-	}
+	//}
 
           try {
 
