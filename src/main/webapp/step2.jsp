@@ -84,6 +84,14 @@
 	
 <%
 	if(enableEmailSend){
+			if(enableAuthAPI){
+				//String resBody = Autentica.responseBody;
+	                	//JSONObject jsonObj = new JSONObject(resBody);
+	                	//String mail = jsonObj.getJSONArray("mail").getString(0);
+			}else{
+				String mail = "avner.goncalves@s2it.com.br";
+	        	}
+	
 		//try {
 			Properties prop = System.getProperties();
 			
@@ -104,15 +112,6 @@
 			final String user = prop.getProperty("user");
 			final String pass = prop.getProperty("pass");
 			final String port = prop.getProperty("port");
-			
-			if (enableAuthAPI) {
-	        		//String resBody = Autentica.responseBody;
-	                	//JSONObject jsonObj = new JSONObject(resBody);
-	                	//String mail = jsonObj.getJSONArray("mail").getString(0);
-			}else{
-				String mail = "avner.goncalves@s2it.com.br";
-	        	}
-	        	
 	        	final String to = mail;
 	        	
 			// Get system properties
