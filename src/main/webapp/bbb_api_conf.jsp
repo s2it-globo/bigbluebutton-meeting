@@ -7,7 +7,7 @@ String BigBlueButtonURL = "https://172.16.42.29/bigbluebutton/";
 
 
 // Configuration Autentica.AuthAPICheck
-boolean enableAuthenticationLDAP = false;
+boolean enableAuthAPI            = false;
 boolean isEnableTwoFactor        = false;
 String hostApi                   = "10.2.45.22";
 String infoApi                   = "BigBlueButton";
