@@ -11,5 +11,5 @@ String hostApi = "10.2.45.22";
 String infoApi = "BigBlueButton";
 boolean isEnableTwoFactor = false;
 boolean enableSmtpAuthentication = false;
-boolean enableAuthenticationLDAP = true;
+boolean enableAuthenticationLDAP = false;
 %>
