@@ -8,16 +8,16 @@ String BigBlueButtonURL = "https://172.16.42.29/bigbluebutton/";
 // Configuration Autentica.AuthAPICheck
 boolean enableAuthAPI   = false;
 boolean enableTwoFactor = false;
-String hostApi          = "10.2.45.22";
-String infoApi          = "BigBlueButton";
+String hostApi = "10.2.45.22";
+String infoApi = "BigBlueButton";
 
 // Send e-mail
 boolean enableMailSend = false;
 boolean enableMailAuth = false;
-String subject         = "BigBluebutton - Sala criada com sucesso";
-String from            = "salaconferencia@corp.globo.com";
-String host            = "smtpar.globoi.com";
-String user            = "";
-String pass            = "";
-Integer port           = 25;
+String subject = "BigBluebutton - Sala criada com sucesso";
+String from = "salaconferencia@corp.globo.com";
+String host = "smtpar.globoi.com";
+String user = "";
+String pass = "";
+Integer port = 25;
 %>
