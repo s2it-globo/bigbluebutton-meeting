@@ -69,9 +69,7 @@
 		String url = BigBlueButtonURL.replace("bigbluebutton/","meeting/");
 		String inviteURL = url + urlParameters;
 %>
-	<h2 class="form-signin-heading">
-		Reunião '<%=StringEscapeUtils.escapeHtml(meetingName)%>' foi criada com sucesso!
-	</h2>
+	<h2 class="form-signin-heading">Reunião '<%=StringEscapeUtils.escapeHtml(meetingName)%>' foi criada com sucesso!</h2>
 	<br />
 	<div class="page-header">
 		<h3>Passo 2 - Convide outras pessoas usando o seguinte link (mostrado abaixo):</h3>
@@ -106,14 +104,16 @@
 			final String user = prop.getProperty("user");
 			final String pass = prop.getProperty("pass");
 			final String port = prop.getProperty("port");
-	
+			
 			if (enableAuthenticationLDAP) {
-	        		//String resBody = Autentica.responseBody;
-	                	//JSONObject jsonObj = new JSONObject(resBody);
-	                	//final String to = jsonObj.getJSONArray("mail").getString(0);
-	        	}else{
-	        		final String to = "avner.goncalves@s2it.com.br";
+	        		String resBody = Autentica.responseBody;
+	                	JSONObject jsonObj = new JSONObject(resBody);
+	                	String mail = jsonObj.getJSONArray("mail").getString(0);
+			}else{
+				String mail = "avner.goncalves@s2it.com.br";
 	        	}
+	        	
+	        	final String to = mail;
 	        	
 			// Get system properties
 			Properties properties = System.getProperties();
