@@ -61,7 +61,7 @@
 	Boolean isAuthenticate = false;
 
 	if(enableAuthenticationLDAP){
-		isAuthenticate = Autentica.AuthAPICheck	(username, password, isEnableTwoFactor, hostApi, infoApi);
+		isAuthenticate = Autentica.AuthAPICheck(username, password, isEnableTwoFactor, hostApi, infoApi);
 	}
 	else{
 		isAuthenticate = true;
@@ -190,34 +190,26 @@
 
       Properties properties = System.getProperties();
 
-
-
       // Using SSL 
-
       properties.put("mail.smtp.host", host);
       properties.put("mail.smtp.port", port);
       properties.put("mail.smtp.auth", "false");
-
-
-	  // Get the default Session object.
-	  Session s = Session.getInstance(properties);
 
 	  if (enableSmtpAuthentication){
 	  	properties.put("mail.smtp.socketFactory.port", port);
       	properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
       	properties.put("mail.smtp.auth", "true");
 
-		s = Session.getInstance(properties, new javax.mail.Authenticator() {
+		Session s = Session.getInstance(properties, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(user, pass);
+				return new PasswordAuthentication(user, pass);
+			}
+		});
 
-				 }
-
-			  });
-
+		}else{
+			// Get the default Session object.
+	  		Session s = Session.getInstance(properties);
 		}
-
-
 
           try {
 
