@@ -84,7 +84,7 @@
 	
 <%
 	if(enableEmailSend){
-		try {
+		//try {
 			Properties prop = System.getProperties();
 			
 		  	String propFileName = "resources/config.properties";
@@ -139,7 +139,7 @@
 				Session s = Session.getInstance(properties);
 			//}
 	
-			try {
+			//try {
 				// Create a default MimeMessage object.
 				MimeMessage message = new MimeMessage(s);
 		              	// Set From: header field of the header.
@@ -172,15 +172,13 @@
 		              
 		              	System.out.println("Sent message successfully....");
 		
-			} catch (MessagingException mex) {
-				mex.printStackTrace();
-			}
+			//} catch (MessagingException mex) {
+				//mex.printStackTrace();
+			//}
 		
-		} catch (Exception e) {
-		
-			e.printStackTrace();
-		
-		}
+		//} catch (Exception e) {
+			//e.printStackTrace();
+		//}
 	}
 %>
 
