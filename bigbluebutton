@@ -31,6 +31,11 @@ server {
           proxy_buffering            off;
           keepalive_requests         1000000000;
       }
+      
+      #teste configuracao do redirect
+      location / {
+        return 301 http://10.2.45.22/meeting;
+      }
 
 	 # Handle desktop sharing tunneling.  Forwards
 	 # requests to Red5 on port 5080.
