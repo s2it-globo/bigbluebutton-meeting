@@ -107,7 +107,7 @@
 		final String port = prop.getProperty("port");
 
 		if(enableAuthenticationLDAP){
-        		String responseBody = com.globo.auth.Autentica.responseBody;
+        		String responseBody = Autentica.responseBody;
                 	JSONObject jsonObj = new JSONObject(responseBody);
                 	final String to = jsonObj.getJSONArray("mail").getString(0);
         	}else{
