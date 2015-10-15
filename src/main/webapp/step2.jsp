@@ -1,58 +1,28 @@
 <%@ include file="header.jsp"%>
-
 <%@ page import="java.util.*"%>
-
 <%@ page import="java.io.FileNotFoundException"%>
-
 <%@ page import="java.io.IOException"%>
-
 <%@ page import="java.io.InputStream"%>
-
-
-
 <%@ page import="javax.mail.Message"%>
-
 <%@ page import="javax.mail.MessagingException"%>
-
 <%@ page import="javax.mail.PasswordAuthentication"%>
-
 <%@ page import="javax.mail.Session"%>
-
 <%@ page import="javax.mail.Transport"%>
-
 <%@ page import="javax.mail.internet.InternetAddress"%>
-
 <%@ page import="javax.mail.internet.MimeMessage"%>
-
-
-
 <%@ page import="org.apache.commons.codec.binary.Base64"%>
-
 <%@ page import="org.apache.commons.lang.StringEscapeUtils"%>
-
 <%@ page import="org.json.JSONObject"%>
-
-
-
 <%@ page import="com.globo.auth.*"%>
-
-
-
-
 
 <div class="container">
 
-
-
 <%
-
-	
-
 	if (request.getParameterMap().isEmpty()) {
 		response.sendRedirect("step1.jsp");
-
+	
 	}
-
+	
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
 	String meetingName = request.getParameter("meetingName");
@@ -66,19 +36,11 @@
 		isAuthenticate = true;
 	}
 	
-	JSONObject jsonObj;
-	
-    if(isAuthenticate){
-    
-    	if(enableAuthenticationLDAP){
-    		String responseBody = com.globo.auth.Autentica.responseBody;
-    		jsonObj = new JSONObject(responseBody); 
-    	}
-
+    	if(isAuthenticate){
 		String isRecord = "false";
 
 		//Generate Random Meeting Id
-	    String meetingId = String.valueOf(UUID.randomUUID());
+	    	String meetingId = String.valueOf(UUID.randomUUID());
 		String userId = "";
 		String authToken = "";
 
@@ -177,12 +139,14 @@
 	final String user = prop.getProperty("user");
 	final String pass = prop.getProperty("pass");
 	final String port = prop.getProperty("port");
-	
+
 	if(enableAuthenticationLDAP){
-		final String to = jsonObj.getJSONArray("mail").getString(0);
-	}else{
-		final String to = "avner.goncalves@s2it.com.br";
-	}
+        	String responseBody = com.globo.auth.Autentica.responseBody;
+                JSONObject jsonObj = new JSONObject(responseBody);
+                final String to = jsonObj.getJSONArray("mail").getString(0);
+        }else{
+        	final String to = "avner.goncalves@s2it.com.br";
+        }
 	
 	// Get system properties
 	Properties properties = System.getProperties();
