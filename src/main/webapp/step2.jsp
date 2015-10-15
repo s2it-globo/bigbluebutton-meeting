@@ -178,11 +178,11 @@
 	final String pass = prop.getProperty("pass");
 	final String port = prop.getProperty("port");
 	
-	//if(enableAuthenticationLDAP){
+	if(enableAuthenticationLDAP){
 		final String to = jsonObj.getJSONArray("mail").getString(0);
-	//}else{
-		//final String to = 'avner.goncalves@s2it.com.br';
-	//}
+	}else{
+		final String to = "avner.goncalves@s2it.com.br";
+	}
 	
 	// Get system properties
 	Properties properties = System.getProperties();
