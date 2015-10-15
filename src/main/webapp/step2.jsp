@@ -207,7 +207,7 @@
       	properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
       	properties.put("mail.smtp.auth", "true");
 
-		Session s = Session.getInstance(properties, new javax.mail.Authenticator() {
+		s = Session.getInstance(properties, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 					return new PasswordAuthentication(user, pass);
 
