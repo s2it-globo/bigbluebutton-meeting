@@ -65,12 +65,14 @@
 	}else{
 		isAuthenticate = true;
 	}
-
+	
+	JSONObject jsonObj;
+	
     if(isAuthenticate){
     
     	if(enableAuthenticationLDAP){
     		String responseBody = com.globo.auth.Autentica.responseBody;
-    		JSONObject jsonObj = new JSONObject(responseBody); 
+    		jsonObj = new JSONObject(responseBody); 
     	}
 
 		String isRecord = "false";
@@ -176,11 +178,11 @@
 	final String pass = prop.getProperty("pass");
 	final String port = prop.getProperty("port");
 	
-	if(enableAuthenticationLDAP){
+	//if(enableAuthenticationLDAP){
 		final String to = jsonObj.getJSONArray("mail").getString(0);
-	}else{
-		final String to = 'avner.goncalves@s2it.com.br';
-	}
+	//}else{
+		//final String to = 'avner.goncalves@s2it.com.br';
+	//}
 	
 	// Get system properties
 	Properties properties = System.getProperties();
