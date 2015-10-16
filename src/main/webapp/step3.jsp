@@ -43,10 +43,10 @@
 		<div class="control-group">
 			<label class="control-label" for="meetingName">Visualizar com</label>
 			<div class="controls">
-				<label>
+				<label style="width:200px;">
 					<input class="input-xlarge" type="radio" name="viewType" value="flash" checked> Flash
 				</label>
-				<label>
+				<label style="width:200px;">
 					<input class="input-xlarge" type="radio" name="viewType" value="html5"> HTML5(mobile-viewer)
 				</label>
 			</div>

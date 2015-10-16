@@ -47,9 +47,16 @@
 
 		//mount URL for HTML5
 		if(viewType.equals("html5")){
+
+			System.out.println("AVNER1");
+
 			String joinUrlHtml5 = getJoinURLViewerHtml5(username, meetingId);
 
+			//System.out.println(joinUrlHtml5);
+
 			Document doc = parseXml(getURL(joinUrlHtml5));
+
+			//System.out.println(doc);
 			
 			String meetingId2 = doc.getElementsByTagName("meeting_id").item(0).getTextContent();
 			userId = doc.getElementsByTagName("user_id").item(0).getTextContent();
@@ -57,6 +64,7 @@
 
 			String ip = BigBlueButtonURL.split("\\/bigbluebutton")[0];
 			String html5url = ip + "/html5client/" + meetingId2 + "/" + userId + "/" + authToken;
+
 
 			url_to_redirect = html5url;
 	  	}
@@ -84,14 +92,13 @@
 <%
 	if(enableMailSend){
 	
-		String to = "";
+		String to = "avner.goncalves@s2it.com.br";
 		if(enableAuthAPI){
 			String resBody = Autentica.responseBody;
-            //JSONObject jsonObj = new JSONObject(resBody);
-            //to = jsonObj.getJSONArray("mail").getString(0);
-		}else{
-			to = "avner.goncalves@s2it.com.br";
-        }
+        	JSONObject jsonObj = new JSONObject(resBody);
+            to = jsonObj.getJSONArray("mail").getString(0);
+		}
+        
 	        	
 		// Get system properties
 		Properties properties = System.getProperties();
