@@ -34,7 +34,7 @@ server {
       
       #teste configuracao do redirect
       location / {
-        return 301 http://172.16.42.231/meeting;
+        return 301 http://172.16.42.29/meeting;
       }
 
 	 # Handle desktop sharing tunneling.  Forwards
