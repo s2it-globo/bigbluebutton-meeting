@@ -34,11 +34,11 @@
 		isAuthenticate = true;
 	}
 	
-    	if(isAuthenticate){
+	if(isAuthenticate){
 		String isRecord = "false";
 
 		//Generate Random Meeting Id
-	    	String meetingId = String.valueOf(UUID.randomUUID());
+	    String meetingId = String.valueOf(UUID.randomUUID());
 		String userId = "";
 		String authToken = "";
 
@@ -86,68 +86,67 @@
 	
 		String to = "";
 		if(enableAuthAPI){
-			//String resBody = Autentica.responseBody;
-                	//JSONObject jsonObj = new JSONObject(resBody);
-                	//to = jsonObj.getJSONArray("mail").getString(0);
+			String resBody = Autentica.responseBody;
+            //JSONObject jsonObj = new JSONObject(resBody);
+            //to = jsonObj.getJSONArray("mail").getString(0);
 		}else{
 			to = "avner.goncalves@s2it.com.br";
-        	}
+        }
 	        	
 		// Get system properties
 		Properties properties = System.getProperties();
+		Session s = Session.getInstance(properties);
 
 		// Using SSL 
 		properties.put("mail.smtp.host", host);
 		properties.put("mail.smtp.port", port);
 		properties.put("mail.smtp.auth", "false");
+
+		if(enableMailAuth){
+
+			properties.put("mail.smtp.auth", "true");
+			properties.put("mail.smtp.socketFactory.port", port);
+			properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 	
-		//if (enableMailAuth){
-			//properties.put("mail.smtp.socketFactory.port", port);
-			//properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-			//properties.put("mail.smtp.auth", "true");
-	
-			//Session s = Session.getInstance(properties, new javax.mail.Authenticator() {
-			//	protected PasswordAuthentication getPasswordAuthentication() {
-			//		return new PasswordAuthentication(user, pass);
-			//	}
-			//});
+			s = Session.getInstance(properties, new javax.mail.Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(user, pass);
+				}
+			});
 			
-		//}else{
-			// Get the default Session object.
-			Session s = Session.getInstance(properties);
-		//}
+		}
 	
 		// Create a default MimeMessage object.
 		MimeMessage message = new MimeMessage(s);
-              	// Set From: header field of the header.
-              	message.setFrom(new InternetAddress(from));
-              	// Set To: header field of the header.
-              	message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-              	// Set Subject: header field
-              	message.setSubject(subject);
-              
-              	// Now set the actual message
-              	StringBuilder text1 = new StringBuilder();
-              	text1.append("Reunião "+meetingName+" foi criada com sucesso!\n\n");
-              	text1.append("Convide outras pessoas usando o seguinte link (mostrado abaixo): \n");
-              	text1.append(inviteURL);
-              	text1.append("\n\n");
-              	text1.append("Clique no link abaixo para iniciar a sua reunião: \n");
-              	text1.append(url_to_redirect);
+      	// Set From: header field of the header.
+      	message.setFrom(new InternetAddress(from));
+      	// Set To: header field of the header.
+      	message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+      	// Set Subject: header field
+      	message.setSubject(subject);
+      
+      	// Now set the actual message
+      	StringBuilder text1 = new StringBuilder();
+      	text1.append("Reunião "+meetingName+" foi criada com sucesso!\n\n");
+      	text1.append("Convide outras pessoas usando o seguinte link (mostrado abaixo): \n");
+      	text1.append(inviteURL);
+      	text1.append("\n\n");
+      	text1.append("Clique no link abaixo para iniciar a sua reunião: \n");
+      	text1.append(url_to_redirect);
 
-              	message.setText(text1.toString());
-              	Transport.send(message);     
-              
-              	// Now set the actual message
-              	StringBuilder text2 = new StringBuilder();
-              	text2.append("Reunião "+meetingName+" foi criada com sucesso!\n\n");
-              	text2.append("Clique no link abaixo para iniciar a sua reunião: \n");
-              	text2.append(inviteURL);
+      	message.setText(text1.toString());
+      	Transport.send(message);     
+      
+      	// Now set the actual message
+      	StringBuilder text2 = new StringBuilder();
+      	text2.append("Reunião "+meetingName+" foi criada com sucesso!\n\n");
+      	text2.append("Clique no link abaixo para iniciar a sua reunião: \n");
+      	text2.append(inviteURL);
 
-        	message.setText(text2.toString());
-              	Transport.send(message);
-              
-              	System.out.println("Sent message successfully....");
+		message.setText(text2.toString());
+      	Transport.send(message);
+      
+      	System.out.println("Sent message successfully....");
 	}
 %>
 
