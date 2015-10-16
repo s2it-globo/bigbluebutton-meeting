@@ -153,8 +153,8 @@
 
 <%@ include file="footer.jsp"%>
 
-<%}else{
-	response.sendRedirect("step1.jsp?auth=false");
-}
-
+<%
+    	}else{
+		response.sendRedirect("step1.jsp?auth=false");
+	}
 %>
