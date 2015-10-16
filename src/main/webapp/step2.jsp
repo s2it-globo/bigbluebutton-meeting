@@ -48,8 +48,6 @@
 		//mount URL for HTML5
 		if(viewType.equals("html5")){
 
-			System.out.println("AVNER1");
-
 			String joinUrlHtml5 = getJoinURLViewerHtml5(username, meetingId);
 
 			//System.out.println(joinUrlHtml5);
