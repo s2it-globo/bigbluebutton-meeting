@@ -14,10 +14,10 @@ String infoApi = "BigBlueButton";
 // Send e-mail
 boolean enableMailSend = false;
 boolean enableMailAuth = false;
-String subject = "BigBluebutton - Sala criada com sucesso";
-String from = "salaconferencia@corp.globo.com";
-String host = "smtpar.globoi.com";
-String user = "";
-String pass = "";
-Integer port = 25;
+//String subject = "BigBluebutton - Sala criada com sucesso";
+//String from = "salaconferencia@corp.globo.com";
+//String host = "smtpar.globoi.com";
+//String user = "";
+//String pass = "";
+//Integer port = 25;
 %>
