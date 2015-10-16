@@ -41,9 +41,10 @@
 	    String meetingId = String.valueOf(UUID.randomUUID());
 		String userId = "";
 		String authToken = "";
+		String encodedMeetingName = URLEncoder.encode(meetingName, "UTF-8");
 
 		// This is the URL for to join the meeting as moderator	
-		String url_to_redirect = getJoinURL(username, meetingId, meetingName, isRecord, "<br>Bem-vindo ao %%CONFNAME%%.<br>", null, null);
+		String url_to_redirect = getJoinURL(username, meetingId, encodedMeetingName, isRecord, "<br>Bem-vindo ao %%CONFNAME%%.<br>", null, null);
 
 		//mount URL for HTML5
 		if(viewType.equals("html5")){
@@ -54,7 +55,7 @@
 
 			Document doc = parseXml(getURL(joinUrlHtml5));
 
-			//System.out.println(doc);
+			
 			
 			String meetingId2 = doc.getElementsByTagName("meeting_id").item(0).getTextContent();
 			userId = doc.getElementsByTagName("user_id").item(0).getTextContent();
@@ -66,8 +67,6 @@
 
 			url_to_redirect = html5url;
 	  	}
-
-		String encodedMeetingName = URLEncoder.encode(meetingName, "UTF-8");
 
 		String urlParameters = String.format("step3.jsp?meetingID=%s&meetingName=%s&userId=%s&authToken=%s", meetingId, encodedMeetingName, userId, authToken);
 
