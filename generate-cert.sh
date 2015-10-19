@@ -8,11 +8,12 @@
 
 export SAN="IP:$1"
 
-if [ -f "/etc/nginx/ssl/bigbluebutton.crm" ] then
+if [ -f "/etc/nginx/ssl/bigbluebutton.crm" ]; then
   rm /etc/nginx/ssl/bigbluebutton.crm
 fi
 
-if [ -f "/etc/nginx/ssl/bigbluebutton.key" ] then
+
+if [ -f "/etc/nginx/ssl/bigbluebutton.key" ]; then
   rm /etc/nginx/ssl/bigbluebutton.key
 fi
 
