@@ -4,7 +4,7 @@ sed -i '8i SAN="email:jose.sales@s2it.com.br"' /usr/lib/ssl/openssl.cnf
 
 sed -i '219i subjectAltName=${ENV::SAN}' /usr/lib/ssl/openssl.cnf
 
-sed -i '226i subjectAltName=${ENV::SAN}' /usr/lib/ssl/openssl.cnf
+sed -i '228i subjectAltName=${ENV::SAN}' /usr/lib/ssl/openssl.cnf
 
 export SAN="IP:$1"
 
