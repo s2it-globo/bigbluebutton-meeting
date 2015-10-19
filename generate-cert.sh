@@ -8,7 +8,13 @@
 
 export SAN="IP:$1"
 
-rm /etc/nginx/ssl/bigbluebutton.crm bigbluebutton.key
+if [ -f "/etc/nginx/ssl/bigbluebutton.crm" ] then
+  rm /etc/nginx/ssl/bigbluebutton.crm
+fi
+
+if [ -f "/etc/nginx/ssl/bigbluebutton.key" ] then
+  rm /etc/nginx/ssl/bigbluebutton.key
+fi
 
 #gerando certificado ja com todos os parametros
 /usr/bin/openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -subj '/CN=BigBlueButton/O=BigBlueButton, Inc./C=US/ST=Oregon/L=Portland' -nodes -out /etc/nginx/ssl/bigbluebutton.crt -keyout /etc/nginx/ssl/bigbluebutton.key
