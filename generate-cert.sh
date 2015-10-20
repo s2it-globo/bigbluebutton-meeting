@@ -6,7 +6,7 @@
 
 # sed -i '228i subjectAltName=${ENV::SAN}' /usr/lib/ssl/openssl.cnf
 
-export SAN="IP:$1"
+export SAN="DNS:$1"
 
 if [ -f "/etc/nginx/ssl/bigbluebutton.crm" ]; then
   rm /etc/nginx/ssl/bigbluebutton.crm
